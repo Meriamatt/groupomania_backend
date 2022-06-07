@@ -9,8 +9,10 @@ exports.createPost = (req, res, next) => {
         ...postObject,
         likes: 0,
         usersLiked: [],
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        date: new Date(Date.now())
     });
+
     post.save()
         .then(() => res.status(201).json({
             message: 'publication enregistrée !'
@@ -38,39 +40,44 @@ exports.getOnePost = (req, res, next) => {
 
 exports.modifyPost = (req, res, next) => {
     const postId = req.params.id;
-     
-    if(req.file) {
-        
-        Post.findById(prodId) // search the sauce which its id = prodId
-        .then((post) => {
+    console.log(req.body);
+    if (req.file) {
 
-            const filename = post.imageUrl.split("/images/")[1];
-            const sentImageUrl = `${req.protocol}://${req.get("host")}/images/${
+        Post.findById(postId) // search the post which its id = prodId
+            .then((post) => {
+
+                const filename = post.imageUrl.split("/images/")[1];
+                const sentImageUrl = `${req.protocol}://${req.get("host")}/images/${
                 req.file.filename
             }`;
-            console.log(sentImageUrl);
-            fs.unlink(`images/${filename}`, () => {
-                Post.updateOne({
-                        _id: postId
-                },
-                {
-                    ...req.body, _id: postId, 
-                   imageUrl: sentImageUrl
-                })
-                .then (()=> res.status(200).json({ message: "objet modifié" }))
-                .catch((err) => res.status(400).json(err));
-            });
-        })
-        .catch((err) => res.status(500).json(err));
+                console.log(sentImageUrl);
+                fs.unlink(`images/${filename}`, () => {
+                    Post.updateOne({
+                            _id: postId
+                        }, {
+                            ...JSON.parse(req.body.post),
+                            _id: postId,
+                            imageUrl: sentImageUrl,
+                            date: new Date(Date.now()),
+                        })
+                        .then(() => res.status(200).json({
+                            message: "objet modifié"
+                        }))
+                        .catch((err) => res.status(400).json(err));
+                });
+            })
+            .catch((err) => res.status(500).json(err));
     } else {
         Post.updateOne({
-            _id: postId
-    },
-    {
-        ...req.body, _id: postId, 
-    })
-    .then (()=> res.status(200).json({ message: "objet modifié" }))
-    .catch((err) => res.status(400).json(err));
+                _id: postId
+            }, {
+                ...req.body,
+                _id: postId,
+            })
+            .then(() => res.status(200).json({
+                message: "objet modifié"
+            }))
+            .catch((err) => res.status(400).json(err));
     }
 };
 
@@ -114,28 +121,30 @@ exports.getAllPosts = (req, res, next) => {
 exports.likePost = (req, res, next) => {
     const {
         userId,
-        like
+        isLiked
     } = req.body
     Post.findOne({
             _id: req.params.id
         })
         .then(post => {
             let newUsersLiked = post.usersLiked
-            if (like === 1) {
-                console.log(1);
+            if (isLiked) {
                 if (post.usersLiked.includes(userId)) {
                     newUsersLiked.splice(newUsersLiked.indexOf(userId), 1)
-                    console.log("userId deleted");
                 } else {
-                    newUsersLiked.push(userId)
+                    newUsersLiked.push(userId);
                 }
+            }  else {
+                if (post.usersLiked.includes(userId)) {
+                    newUsersLiked.splice(newUsersLiked.indexOf(userId), 1)
+                } 
             }
-           
             Post.updateOne({
                     _id: req.params.id
                 }, {
                     likes: newUsersLiked.length,
-                    usersLiked: newUsersLiked
+                    usersLiked: newUsersLiked,
+                    isLiked: isLiked
                 })
                 .then(() => res.status(200).json({
                     message: 'Objet modifié !'
