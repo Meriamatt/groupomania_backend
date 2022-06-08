@@ -33,7 +33,6 @@ const postSchema = mongoose.Schema({
     type: Boolean,
     default: false
   }
-  //usersDisLiked: { type: [ "String <userId>" ], required: true }
 });
 
 module.exports = mongoose.model('post', postSchema);
