@@ -13,21 +13,23 @@
 
 ### Pour démarrer ce projet en local, clonez le repository: 
 
-naviguez vers la page du répértoir.
+- naviguez vers la page du répértoir.
 
-clickez sur le boutton Code et copier l'URL du répértoir.
+- clickez sur le boutton Code et copier l'URL du répértoir.
 
-Dans votre terminale de commande changez la direction vers la location dans laquelle vous voulez effectuer le clône.
+- Dans votre terminale de commande changez la direction vers la location dans laquelle vous voulez effectuer le clône.
 
-tappez git clone et l'URL que vous avez copié précédemment et appuyez sur Entrer.
+- tappez git clone et l'URL que vous avez copié précédemment et appuyez sur Entrer.
 
-Depuis le terminal de l'éditeur de code, se rendre sur le dossier du répértoir et exécuter la commande :
+- Depuis le terminal de l'éditeur de code, se rendre sur le dossier du répértoir et exécuter la commande :
 
 npm install
 
-Vous pouvez ensuite lancer le serveur avec la commande node server
+### Vous pouvez ensuite lancer le serveur avec la commande:
 
-Vous devez également ajouter à la racine du projet le fichier .env contenant les variables suivantes :
+node server
+
+### Vous devez également ajouter à la racine du projet le fichier .env contenant les variables suivantes :
 
 DB_USER = (non d'utilisateur de votre base de données)
 DB_PASSWORD = ( mot de passe de votre base de données)
