@@ -13,17 +13,19 @@
 
 ### Pour démarrer ce projet en local, clonez le repository: 
 
-- naviguez vers la page du répértoir.
+- naviguez vers la page du répértoire.
 
-- clickez sur le boutton Code et copier l'URL du répértoir.
+- clickez sur le boutton Code et copier l'URL du répértoire.
 
-- Dans votre terminale de commande changez la direction vers la location dans laquelle vous voulez effectuer le clône.
+- Dans votre terminal de commande changez la direction vers la location dans laquelle vous voulez effectuer le clône.
 
-- tappez git clone et l'URL que vous avez copié précédemment et appuyez sur Entrer.
+- tapez git clone et l'URL que vous avez copié précédemment et appuyez sur Entrer.
 
-- Depuis le terminal de l'éditeur de code, se rendre sur le dossier du répértoir et exécuter la commande :
+- Depuis le terminal de l'éditeur de code, se rendre sur le dossier du répértoire et exécuter la commande :
 
 npm install
+
+(cette commande  installe toutes les dépendences nécessaires pour le fonctionnement du projet)
 
 ### Vous pouvez ensuite lancer le serveur avec la commande:
 
