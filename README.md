@@ -32,4 +32,5 @@ node server
 ### Vous devez également ajouter à la racine du projet le fichier .env contenant les variables suivantes :
 
 DB_USER = (non d'utilisateur de votre base de données)
+
 DB_PASSWORD = ( mot de passe de votre base de données)
